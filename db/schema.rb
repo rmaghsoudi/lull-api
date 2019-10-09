@@ -10,14 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_174108) do
+ActiveRecord::Schema.define(version: 2019_10_09_202215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "entries", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "users_id"
+    t.index ["users_id"], name: "index_entries_on_users_id"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name"
+    t.string "content"
+    t.bigint "users_id"
+    t.index ["users_id"], name: "index_exercises_on_users_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.string "title"
+    t.boolean "completed?"
+    t.bigint "users_id"
+    t.index ["users_id"], name: "index_goals_on_users_id"
+  end
+
   create_table "jwt_blacklist", force: :cascade do |t|
     t.string "jti", null: false
     t.index ["jti"], name: "index_jwt_blacklist_on_jti"
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.integer "score"
+    t.datetime "completed_at"
+    t.bigint "users_id"
+    t.index ["users_id"], name: "index_tests_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,4 +63,8 @@ ActiveRecord::Schema.define(version: 2019_10_09_174108) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "entries", "users", column: "users_id"
+  add_foreign_key "exercises", "users", column: "users_id"
+  add_foreign_key "goals", "users", column: "users_id"
+  add_foreign_key "tests", "users", column: "users_id"
 end
