@@ -1,3 +1,3 @@
-class JwtBlacklist < ApplicationRecord
+class JWTBlacklist < ApplicationRecord
 
 end

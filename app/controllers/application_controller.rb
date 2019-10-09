@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
         {
           status: '400',
           title: 'Bad Request',
-          detail: resource.errors,
+          detail: resource.errors.messages,
           code: '100'
         }
       ]
