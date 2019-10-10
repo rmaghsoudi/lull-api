@@ -3,7 +3,13 @@ class RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
   def create
-    build_resource(sign_up_params)
+    user_params = {
+      email: params[:user][:email],
+      password: params[:user][:password],
+      first_name: params[:user][:fullName].split(' ').first,
+      last_name: params[:user][:fullName].split(' ').last
+    }
+    build_resource(user_params)
     
     resource.save
     # custom method to render resources( located in the application controller )
