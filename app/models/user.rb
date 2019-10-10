@@ -6,7 +6,10 @@ class User < ApplicationRecord
 
   # Validations
   validates :email, uniqueness: true
-
+  validates :password, format: { 
+    with: /\A.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[[:^alnum:]]).*\z/,
+    message: 'Invalid password. Must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character'
+  }
   # Relationships
   has_many :entries
   has_many :tests
