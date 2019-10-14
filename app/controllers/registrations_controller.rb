@@ -7,8 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     user_params = {
       email: full_sanitizer.sanitize(params[:user][:email]),
       password: full_sanitizer.sanitize(params[:user][:password]),
-      first_name: full_sanitizer.sanitize(params[:user][:firstName]),
-      last_name: full_sanitizer.sanitize(params[:user][:lastName])
+      full_name: full_sanitizer.sanitize(params[:user][:fullName])
     }
     build_resource(user_params)
     
